@@ -15,4 +15,9 @@ public class Test1 {
         System.out.append("HELLO");
         System.out.println();
     }
+
+    public static void method4() {
+        System.out.append("HELLO");
+        System.out.println();
+    }
 }

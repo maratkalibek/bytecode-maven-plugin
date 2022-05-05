@@ -29,6 +29,7 @@ public class PluginClassVisitor extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-        return new PluginMethodVisitor(this.clazz, name, this.calls);
+        boolean isStatic = (Opcodes.ACC_STATIC & access) == Opcodes.ACC_STATIC;
+        return new PluginMethodVisitor(this.clazz, name, isStatic, this.calls);
     }
 }

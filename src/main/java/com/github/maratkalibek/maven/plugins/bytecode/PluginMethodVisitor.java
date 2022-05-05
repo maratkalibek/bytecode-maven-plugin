@@ -14,16 +14,18 @@ public class PluginMethodVisitor extends MethodVisitor {
     private String clazz;
     private String method;
     private Integer line;
+    private boolean isStatic;
 
     private Boolean systemOutInUse = false;
 
-    protected PluginMethodVisitor(String clazz, String method, List<SystemOutPrintCall> calls) {
+    protected PluginMethodVisitor(String clazz, String method, boolean isStatic, List<SystemOutPrintCall> calls) {
         super(Opcodes.ASM8);
 
         this.calls = calls;
 
         this.clazz = clazz;
         this.method = method;
+        this.isStatic = isStatic;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class PluginMethodVisitor extends MethodVisitor {
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
         if (opcode==Opcodes.INVOKEVIRTUAL) {
             if (systemOutInUse && name.equals("print") || name.equals("println")) {
-                SystemOutPrintCall call = new SystemOutPrintCall(clazz, method, line);
+                SystemOutPrintCall call = new SystemOutPrintCall(clazz, method, isStatic, line);
                 calls.add(call);
             }
             systemOutInUse = false;

@@ -20,7 +20,7 @@ public class SystemOutPrintMojo extends AbstractMojo {
             List<SystemOutPrintCall> calls = SystemOutFinder.findAllCallsInDirectory(dir);
 
             for (SystemOutPrintCall call : calls) {
-                getLog().info(String.format("FOUND System.out.print call in %s on line %s for method", call.getClazz(), call.getLine(), call.getMethod()));
+                getLog().info(String.format("FOUND System.out.print call in %s on line %s for method %s", call.getClazz(), call.getLine(), call.getMethod()));
             }
 
             if (calls.size()==0) {
