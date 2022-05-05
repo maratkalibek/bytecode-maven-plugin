@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +47,9 @@ public class SystemOutFinder {
     }
 
     private static List<SystemOutPrintCall> findAllCallsInClass(File file, List<SystemOutMethod> methods) throws IOException {
+        if (!file.getName().endsWith(".class"))
+            return Collections.emptyList();
+
         InputStream in = new FileInputStream(file);
         ClassReader cr = new ClassReader(in);
 
